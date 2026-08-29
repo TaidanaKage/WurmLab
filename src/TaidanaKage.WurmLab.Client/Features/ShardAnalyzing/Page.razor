@@ -1,0 +1,73 @@
+﻿@page "/ShardAnalysis"
+
+<PageTitle>WurmLab - Shard Analysis</PageTitle>
+
+<MudBreadcrumbs Items="_breadcrumbs" />
+
+<MudText Typo="Typo.h2" Class="pb-5">Shard Analysis</MudText>
+
+@if (_isProcessed)
+{
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <MudAlert Severity="Severity.Error" Variant="Variant.Filled" Elevation="0" Dense="true" Class="mb-4">
+            @_errorMessage
+        </MudAlert>
+    }
+
+    @if (_svgMarkup is not null)
+    {
+        <div id="shard-svg" class="mt-4">
+            @((MarkupString)_svgMarkup)
+        </div>
+
+        <div class="mt-4 mb-4 d-flex gap-2">
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Secondary"
+                       Href="@_svgDataUrl"
+                       download="shard-analysis.svg">
+                Download SVG
+            </MudButton>
+        </div>
+    }
+
+    <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="ResetInput">
+        Reset
+    </MudButton>
+
+}
+else
+{
+
+    <MudTextField @bind-Value="_inputText"
+                  Label="Event log output"
+                  Variant="Variant.Outlined"
+                  Lines="20"
+                  FullWidth="true"
+                  Class="mb-4 pt-4" />
+
+    <MudButton Variant="Variant.Filled"
+               Color="Color.Primary"
+               OnClick="SubmitAsync"
+               Disabled="_isProcessing">
+        Submit
+    </MudButton>
+
+    <MudText Class="mt-10">Instructions:</MudText>
+
+    <MudList T="string" Dense="true">
+        <MudListItem T="string">1. In the game, pick up the shard you want to analyze.</MudListItem>
+        <MudListItem T="string">2. Right click the Event tab title -> Clear tab.</MudListItem>
+        <MudListItem T="string">3. Analyze the shard in your inventory.</MudListItem>
+        <MudListItem T="string">4. Right click inside the Event tab -> Copy entire tab.</MudListItem>
+        <MudListItem T="string">5. Paste the copied text in the field below.</MudListItem>
+        <MudListItem T="string">6. Click Submit.</MudListItem>
+    </MudList>
+
+    <MudText Class="mt-4">Notes</MudText>
+
+    <MudList T="string" Dense="true">
+        <MudListItem T="string">If you only want to analyze a specific part of the result, manually select and copy just those lines from the Event log instead of the entire tab.</MudListItem>
+    </MudList>
+
+}

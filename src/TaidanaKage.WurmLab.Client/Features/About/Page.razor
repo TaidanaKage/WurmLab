@@ -1,0 +1,127 @@
+﻿@page "/About"
+
+<PageTitle>WurmLab - About</PageTitle>
+
+<MudBreadcrumbs Items="_breadcrumbs" />
+
+<MudText Typo="Typo.h2" Class="pb-5">About</MudText>
+
+<MudText Class="pb-5">
+    TK WurmLab is a small collection of browser-based tools for Wurm Unlimited players.
+    Everything runs locally in your browser. Nothing is uploaded to a server.
+</MudText>
+
+<MudGrid Spacing="4">
+
+    <MudItem xs="12" md="6">
+        <MudCard Class="d-flex flex-column" Style="height: 100%;">
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudIcon Icon="@Icons.Material.Filled.Email" Color="Color.Primary" Size="Size.Large" />
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Feedback</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent Class="flex-grow-1">
+                <MudText Typo="Typo.body2">
+                    Found a bug or have an idea for a new tool? Send me an email.
+                </MudText>
+                <MudLink Href="mailto:taidana@kage.sk" Typo="Typo.body2">
+                    taidana@kage.sk
+                </MudLink>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+
+    <MudItem xs="12" md="6">
+        <MudCard Class="d-flex flex-column" Style="height: 100%;">
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudIcon Icon="@Icons.Custom.Brands.GitHub" Color="Color.Primary" Size="Size.Large" />
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Source Code</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent Class="flex-grow-1">
+                <MudText Typo="Typo.body2">
+                    WurmLab is an open-source project. Issues and pull requests are welcome.
+                </MudText>
+                <MudLink Href="https://github.com/TaidanaKage/WurmLab"
+                         Target="_blank"
+                         Rel="noopener noreferrer"
+                         Typo="Typo.body2">
+                    github.com/TaidanaKage/WurmLab
+                </MudLink>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+
+    <MudItem xs="12" md="6">
+        <MudCard Class="d-flex flex-column" Style="height: 100%;">
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudIcon Icon="@Icons.Custom.Brands.Steam" Color="Color.Primary" Size="Size.Large" />
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Steam</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent Class="flex-grow-1">
+                <MudText Typo="Typo.body2">
+                    Feel free to add me on Steam.
+                </MudText>
+                <MudLink Href="https://steamcommunity.com/id/dsx75/"
+                         Target="_blank"
+                         Rel="noopener noreferrer"
+                         Typo="Typo.body2">
+                    steamcommunity.com/id/dsx75/
+                </MudLink>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+
+    <MudItem xs="12" md="6">
+        <MudCard Class="d-flex flex-column" Style="height: 100%;">
+            <MudCardHeader>
+                <CardHeaderAvatar>
+                    <MudIcon Icon="@Icons.Material.Filled.Public" Color="Color.Primary" Size="Size.Large" />
+                </CardHeaderAvatar>
+                <CardHeaderContent>
+                    <MudText Typo="Typo.h6">Riviera</MudText>
+                </CardHeaderContent>
+            </MudCardHeader>
+            <MudCardContent Class="flex-grow-1">
+                <MudText Typo="Typo.body2">
+                    A Wurm Unlimited server I recommend. It is also the reason this app exists:
+                    someone in my household plays there actively and kept complaining about how hard
+                    the plain-text analysis logs are to read.
+                </MudText>
+                <MudLink Href="https://riviera.thahenry.de/riviera"
+                         Target="_blank"
+                         Rel="noopener noreferrer"
+                         Typo="Typo.body2">
+                    riviera.thahenry.de/riviera
+                </MudLink>
+            </MudCardContent>
+        </MudCard>
+    </MudItem>
+
+</MudGrid>
+
+<MudText Typo="Typo.h6" Class="pt-8 pb-3">Wurm Unlimited on Steam</MudText>
+
+<iframe src="https://store.steampowered.com/widget/366220/"
+        frameborder="0"
+        scrolling="no"
+        style="width: 100%; max-width: 646px; height: 250px; border: 0;"
+        title="Wurm Unlimited on Steam"></iframe>
+
+@code {
+    private readonly List<BreadcrumbItem> _breadcrumbs =
+    [
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("About", href: null, disabled: true)
+    ];
+}

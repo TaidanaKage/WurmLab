@@ -1,0 +1,19 @@
+﻿@page "/HousePlan"
+
+<PageTitle>WurmLab - House Plan</PageTitle>
+
+<MudBreadcrumbs Items="_breadcrumbs" />
+
+<MudText Typo="Typo.h2" Class="pb-5">House Plan</MudText>
+
+<MudAlert Severity="Severity.Warning">
+    Work in progress...
+</MudAlert>
+
+@code {
+    private readonly List<BreadcrumbItem> _breadcrumbs =
+    [
+        new BreadcrumbItem("Home", href: "/"),
+        new BreadcrumbItem("House Plan", href: "/HousePlan")
+    ];
+}
