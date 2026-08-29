@@ -1,0 +1,60 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Install wasm-tools
+        run: dotnet workload install wasm-tools
+
+      - name: Publish
+        run: dotnet publish src/TaidanaKage.WurmLab.Client/TaidanaKage.WurmLab.Client.csproj -c Release -o publish
+
+      # GitHub Pages serves the app from https://<user>.github.io/WurmLab/
+      - name: Rewrite base href
+        run: sed -i 's|<base href="/" />|<base href="/WurmLab/" />|g' publish/wwwroot/index.html
+
+      # Prevent Jekyll from ignoring the _framework folder
+      - name: Add .nojekyll
+        run: touch publish/wwwroot/.nojekyll
+
+      # Support deep links / refresh on client-side routes
+      - name: Add 404 fallback
+        run: cp publish/wwwroot/index.html publish/wwwroot/404.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: publish/wwwroot
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+        
