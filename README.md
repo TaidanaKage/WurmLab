@@ -6,7 +6,7 @@ No data is uploaded to a server.
 
 ## Try It Now
 
-You can use the app directly at [https://taidanakage.github.io/WurmLab/](taidanakage.github.io/WurmLab) — no need to compile or run anything yourself.
+You can use the app directly at [taidanakage.github.io/WurmLab/](https://taidanakage.github.io/WurmLab/) — no need to compile or run anything yourself.
 
 ## About
 
