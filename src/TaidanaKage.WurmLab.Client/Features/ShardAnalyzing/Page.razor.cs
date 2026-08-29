@@ -8,8 +8,8 @@ public partial class Page
 {
     private readonly List<BreadcrumbItem> _breadcrumbs =
     [
-        new BreadcrumbItem("Home", href: "/"),
-            new BreadcrumbItem("Shard Analyzing", href: "/ShardAnalyzing")
+        new BreadcrumbItem("Home", href: "./"),
+            new BreadcrumbItem("Shard Analyzing", href: "ShardAnalyzing")
     ];
 
     private bool _isProcessed = false;

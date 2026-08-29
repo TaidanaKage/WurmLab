@@ -1,4 +1,4 @@
-﻿@page "/SettlementUpkeep"
+@page "/SettlementUpkeep"
 
 <PageTitle>WurmLab - Settlement Upkeep</PageTitle>
 
@@ -13,7 +13,7 @@
 @code {
     private readonly List<BreadcrumbItem> _breadcrumbs =
     [
-        new BreadcrumbItem("Home", href: "/"),
-        new BreadcrumbItem("Settlement Upkeep", href: "/SettlementUpkeep")
+        new BreadcrumbItem("Home", href: "./"),
+        new BreadcrumbItem("Settlement Upkeep", href: null, disabled: true)
     ];
 }
