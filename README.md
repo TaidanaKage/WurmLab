@@ -6,7 +6,13 @@ No data is uploaded to a server.
 
 ## Try It Now
 
-You can use the app directly at [taidanakage.github.io/WurmLab/](https://taidanakage.github.io/WurmLab/) — no need to compile or run anything yourself.
+You can use the app directly at [taidanakage.github.io/WurmLab](https://taidanakage.github.io/WurmLab/) — no need to compile or run anything yourself.
+
+<p align="center">
+    <a href="assets/shard-analysis-feature-preview.png">
+        <img src="assets/shard-analysis-feature-preview.png" alt="Shard Analysis feature preview" width="400">
+    </a>
+</p>
 
 ## About
 
