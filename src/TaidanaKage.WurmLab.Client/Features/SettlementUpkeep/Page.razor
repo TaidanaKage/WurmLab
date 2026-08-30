@@ -6,9 +6,190 @@
 
 <MudText Typo="Typo.h2" Class="pb-5">Settlement Upkeep</MudText>
 
-<MudAlert Severity="Severity.Warning">
-    Work in progress...
-</MudAlert>
+<MudGrid Spacing="4">
+
+    @* Left section - user input *@
+    <MudItem xs="12" md="6">
+        <MudPaper Class="pa-4" Elevation="2">
+            <MudText Typo="Typo.h5" Class="pb-4">Settlement</MudText>
+
+            <MudText Typo="Typo.subtitle1" Class="pb-2">Size (tiles from token)</MudText>
+
+            <MudNumericField T="int"
+                             @bind-Value="FeatureState.North"
+                             @bind-Value:after="FeatureState.Recalculate"
+                             Label="North"
+                             Min="5"
+                             Max="5000"
+                             Variant="Variant.Outlined"
+                             Class="pb-3" />
+
+            <MudNumericField T="int"
+                             @bind-Value="FeatureState.South"
+                             @bind-Value:after="FeatureState.Recalculate"
+                             Label="South"
+                             Min="5"
+                             Max="5000"
+                             Variant="Variant.Outlined"
+                             Class="pb-3" />
+
+            <MudNumericField T="int"
+                             @bind-Value="FeatureState.East"
+                             @bind-Value:after="FeatureState.Recalculate"
+                             Label="East"
+                             Min="5"
+                             Max="5000"
+                             Variant="Variant.Outlined"
+                             Class="pb-3" />
+
+            <MudNumericField T="int"
+                             @bind-Value="FeatureState.West"
+                             @bind-Value:after="FeatureState.Recalculate"
+                             Label="West"
+                             Min="5"
+                             Max="5000"
+                             Variant="Variant.Outlined"
+                             Class="pb-3" />
+
+            <MudDivider Class="my-4" />
+
+            <MudNumericField T="int"
+                             @bind-Value="FeatureState.Perimeter"
+                             @bind-Value:after="FeatureState.Recalculate"
+                             Label="Perimeter size"
+                             Min="5"
+                             Max="1000"
+                             Variant="Variant.Outlined"
+                             Class="pb-3" />
+
+            <MudNumericField T="int"
+                             @bind-Value="FeatureState.Templars"
+                             @bind-Value:after="FeatureState.Recalculate"
+                             Label="Number of templars"
+                             Min="0"
+                             Max="100"
+                             Variant="Variant.Outlined" />
+
+            <MudDivider Class="my-4" />
+
+            <MudCheckBox T="bool"
+                         @bind-Value="FeatureState.IsEpic"
+                         @bind-Value:after="FeatureState.Recalculate"
+                         Label="Is Epic server?" />
+        </MudPaper>
+    </MudItem>
+
+    @* Right section - calculated results *@
+    <MudItem xs="12" md="6">
+        <MudPaper Class="pa-4" Elevation="2">
+            <MudText Typo="Typo.h5" Class="pb-4">Costs</MudText>
+
+            <MudField Label="Deed tiles"
+                      Variant="Variant.Outlined"
+                      Class="mb-4">
+                @FeatureState.DeedTiles
+            </MudField>
+
+            <MudField Label="Perimeter tiles"
+                      Variant="Variant.Outlined"
+                      Class="mb-4">
+                @FeatureState.PerimeterTiles
+            </MudField>
+
+            <MudField Label="Initial settlement cost"
+                      Variant="Variant.Outlined"
+                      Class="mb-4">
+                @FeatureState.InitialCost.ToString()
+            </MudField>
+
+            <MudField Label="Monthly upkeep"
+                      Variant="Variant.Outlined">
+                @FeatureState.MonthlyUpkeep.ToString()
+            </MudField>
+        </MudPaper>
+    </MudItem>
+
+    @* Bottom section - detailed, human readable explanation of the numbers above *@
+    <MudItem xs="12">
+        <MudPaper Class="pa-4" Elevation="2">
+            <MudText Typo="Typo.h5" Class="pb-4">Detailed breakdown</MudText>
+
+            <MudText Typo="Typo.subtitle1" Class="pb-2">Area</MudText>
+
+            <MudText Typo="Typo.body2" Class="pb-1">
+                The deed area includes the token tile itself, so it measures
+                @FeatureState.West + @FeatureState.East + 1 = @FeatureState.DeedWidth tiles from west to east and
+                @FeatureState.North + @FeatureState.South + 1 = @FeatureState.DeedHeight tiles from north to south,
+                which is @FeatureState.DeedWidth x @FeatureState.DeedHeight = <b>@FeatureState.DeedTiles deed tiles</b>.
+            </MudText>
+
+            <MudText Typo="Typo.body2" Class="pb-4">
+                The perimeter is a band @FeatureState.Perimeter tiles wide around the whole deed, so the
+                outer rectangle is @(FeatureState.DeedWidth + 2 * FeatureState.Perimeter) x
+                @(FeatureState.DeedHeight + 2 * FeatureState.Perimeter) tiles. Subtracting the deed itself leaves
+                <b>@FeatureState.PerimeterTiles perimeter tiles</b>.
+            </MudText>
+
+            <MudDivider Class="my-3" />
+
+            <MudText Typo="Typo.subtitle1" Class="pb-2">Initial settlement cost</MudText>
+
+            <MudText Typo="Typo.body2" Class="pb-1">
+                Deed tiles: @FeatureState.DeedTiles x @FeatureState.DeedTilePurchaseUnitCost.ToString()
+                = @FeatureState.DeedPurchaseCost.ToString()
+            </MudText>
+
+            <MudText Typo="Typo.body2" Class="pb-1">
+                Perimeter tiles: @FeatureState.PerimeterTiles x @FeatureState.PerimeterTilePurchaseUnitCost.ToString()
+                = @FeatureState.PerimeterPurchaseCost.ToString()
+            </MudText>
+
+            <MudText Typo="Typo.body2" Class="pb-1">
+                Templar summoning: @FeatureState.Templars x @FeatureState.TemplarSummoningUnitCost.ToString()
+                = @FeatureState.TemplarSummoningTotal.ToString()
+                (@(FeatureState.IsEpic ? "Epic server price" : "standard server price"))
+            </MudText>
+
+            <MudText Typo="Typo.body2" Class="pb-4">
+                <b>Total: @FeatureState.InitialCost.ToString()</b>
+            </MudText>
+
+            <MudDivider Class="my-3" />
+
+            <MudText Typo="Typo.subtitle1" Class="pb-2">Monthly upkeep</MudText>
+
+            <MudText Typo="Typo.body2" Class="pb-1">
+                Deed tiles: @FeatureState.DeedTiles x @FeatureState.DeedTileUpkeepUnitCost.ToString()
+                = @FeatureState.DeedUpkeep.ToString()
+            </MudText>
+
+            <MudText Typo="Typo.body2" Class="pb-1">
+                Perimeter tiles: @FeatureState.PerimeterTiles x @FeatureState.PerimeterTileUpkeepUnitCost.ToString()
+                = @FeatureState.PerimeterUpkeep.ToString()
+            </MudText>
+
+            @if (FeatureState.IsEpic)
+            {
+                <MudText Typo="Typo.body2" Class="pb-1">
+                    Templars: on an Epic server every additional templar is half a silver more expensive than
+                    the previous one (1s, 1.5s, 2s, ...), so @FeatureState.Templars templar(s) cost
+                    @FeatureState.TemplarUpkeepTotal.ToString() per month.
+                </MudText>
+            }
+            else
+            {
+                <MudText Typo="Typo.body2" Class="pb-1">
+                    Templars: @FeatureState.Templars x 1s = @FeatureState.TemplarUpkeepTotal.ToString()
+                </MudText>
+            }
+
+            <MudText Typo="Typo.body2">
+                <b>Total: @FeatureState.MonthlyUpkeep.ToString() per month</b>
+            </MudText>
+        </MudPaper>
+    </MudItem>
+
+</MudGrid>
 
 @code {
     private readonly List<BreadcrumbItem> _breadcrumbs =
@@ -16,4 +197,10 @@
         new BreadcrumbItem("Home", href: "./"),
         new BreadcrumbItem("Settlement Upkeep", href: null, disabled: true)
     ];
+
+    protected override void OnInitialized()
+    {
+        // Make sure the results are up to date when the page is first shown.
+        FeatureState.Recalculate();
+    }
 }
