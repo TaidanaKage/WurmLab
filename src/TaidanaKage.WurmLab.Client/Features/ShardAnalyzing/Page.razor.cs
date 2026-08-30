@@ -9,7 +9,7 @@ public partial class Page
     private readonly List<BreadcrumbItem> _breadcrumbs =
     [
         new BreadcrumbItem("Home", href: "./"),
-            new BreadcrumbItem("Shard Analyzing", href: "ShardAnalyzing")
+            new BreadcrumbItem("Shard Analysis", href: null, disabled: true)
     ];
 
     private bool _isProcessed = false;
