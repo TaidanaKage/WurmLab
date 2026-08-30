@@ -1,8 +1,9 @@
 # TK WurmLab
 
 TK WurmLab is a small collection of browser-based tools for Wurm Unlimited players.
+
 Everything runs locally in your browser, since it's a pure WebAssembly application.
-No data is uploaded to a server.
+Nothing is uploaded to a server.
 
 ## Try It Now
 
