@@ -1,0 +1,78 @@
+<MudPaper Class="pa-4" Elevation="2">
+
+    <MudText Typo="Typo.h5" Class="pb-4">Detailed breakdown</MudText>
+
+    <MudText Typo="Typo.subtitle1" Class="pb-2">Area</MudText>
+
+    <MudText Typo="Typo.body2" Class="pb-1">
+        The deed area includes the token tile itself, so it measures
+        @FeatureState.West + @FeatureState.East + 1 = @FeatureState.DeedWidth tiles from west to east and
+        @FeatureState.North + @FeatureState.South + 1 = @FeatureState.DeedHeight tiles from north to south,
+        which is @FeatureState.DeedWidth x @FeatureState.DeedHeight = <b>@FeatureState.DeedTiles deed tiles</b>.
+    </MudText>
+
+    <MudText Typo="Typo.body2" Class="pb-4">
+        The perimeter is a band @FeatureState.Perimeter tiles wide around the whole deed, so the
+        outer rectangle is @(FeatureState.DeedWidth + 2 * FeatureState.Perimeter) x
+        @(FeatureState.DeedHeight + 2 * FeatureState.Perimeter) tiles. Subtracting the deed itself leaves
+        <b>@FeatureState.PerimeterTiles perimeter tiles</b>.
+    </MudText>
+
+    <MudDivider Class="my-3" />
+
+    <MudText Typo="Typo.subtitle1" Class="pb-2">Initial settlement cost</MudText>
+
+    <MudText Typo="Typo.body2" Class="pb-1">
+        Deed tiles: @FeatureState.DeedTiles x @FeatureState.DeedTilePurchaseUnitCost.ToString()
+        = @FeatureState.DeedPurchaseCost.ToString()
+    </MudText>
+
+    <MudText Typo="Typo.body2" Class="pb-1">
+        Perimeter tiles: @FeatureState.PerimeterTiles x @FeatureState.PerimeterTilePurchaseUnitCost.ToString()
+        = @FeatureState.PerimeterPurchaseCost.ToString()
+    </MudText>
+
+    <MudText Typo="Typo.body2" Class="pb-1">
+        Templar summoning: @FeatureState.Templars x @FeatureState.TemplarSummoningUnitCost.ToString()
+        = @FeatureState.TemplarSummoningTotal.ToString()
+        (@(FeatureState.IsEpic ? "Epic server price" : "standard server price"))
+    </MudText>
+
+    <MudText Typo="Typo.body2" Class="pb-4">
+        <b>Total: @FeatureState.InitialCost.ToString()</b>
+    </MudText>
+
+    <MudDivider Class="my-3" />
+
+    <MudText Typo="Typo.subtitle1" Class="pb-2">Monthly upkeep</MudText>
+
+    <MudText Typo="Typo.body2" Class="pb-1">
+        Deed tiles: @FeatureState.DeedTiles x @FeatureState.DeedTileUpkeepUnitCost.ToString()
+        = @FeatureState.DeedUpkeep.ToString()
+    </MudText>
+
+    <MudText Typo="Typo.body2" Class="pb-1">
+        Perimeter tiles: @FeatureState.PerimeterTiles x @FeatureState.PerimeterTileUpkeepUnitCost.ToString()
+        = @FeatureState.PerimeterUpkeep.ToString()
+    </MudText>
+
+    @if (FeatureState.IsEpic)
+    {
+        <MudText Typo="Typo.body2" Class="pb-1">
+            Templars: on an Epic server every additional templar is half a silver more expensive than
+            the previous one (1s, 1.5s, 2s, ...), so @FeatureState.Templars templar(s) cost
+            @FeatureState.TemplarUpkeepTotal.ToString() per month.
+        </MudText>
+    }
+    else
+    {
+        <MudText Typo="Typo.body2" Class="pb-1">
+            Templars: @FeatureState.Templars x 1s = @FeatureState.TemplarUpkeepTotal.ToString()
+        </MudText>
+    }
+
+    <MudText Typo="Typo.body2">
+        <b>Total: @FeatureState.MonthlyUpkeep.ToString() per month</b>
+    </MudText>
+
+</MudPaper>

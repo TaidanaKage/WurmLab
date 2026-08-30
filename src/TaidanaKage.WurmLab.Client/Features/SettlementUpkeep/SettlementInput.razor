@@ -1,0 +1,83 @@
+<MudPaper Class="pa-4" Elevation="2">
+    <MudText Typo="Typo.h5" Class="pb-4">Settlement</MudText>
+
+    <MudText Typo="Typo.subtitle1" Class="pb-2">Size (tiles from token)</MudText>
+
+    <MudNumericField T="int"
+                     @bind-Value="FeatureState.North"
+                     @bind-Value:after="OnValueChangedAsync"
+                     Label="North"
+                     Min="5"
+                     Max="5000"
+                     Variant="Variant.Outlined"
+                     Class="pb-3" />
+
+    <MudNumericField T="int"
+                     @bind-Value="FeatureState.South"
+                     @bind-Value:after="OnValueChangedAsync"
+                     Label="South"
+                     Min="5"
+                     Max="5000"
+                     Variant="Variant.Outlined"
+                     Class="pb-3" />
+
+    <MudNumericField T="int"
+                     @bind-Value="FeatureState.East"
+                     @bind-Value:after="OnValueChangedAsync"
+                     Label="East"
+                     Min="5"
+                     Max="5000"
+                     Variant="Variant.Outlined"
+                     Class="pb-3" />
+
+    <MudNumericField T="int"
+                     @bind-Value="FeatureState.West"
+                     @bind-Value:after="OnValueChangedAsync"
+                     Label="West"
+                     Min="5"
+                     Max="5000"
+                     Variant="Variant.Outlined"
+                     Class="pb-3" />
+
+    <MudDivider Class="my-4" />
+
+    <MudNumericField T="int"
+                     @bind-Value="FeatureState.Perimeter"
+                     @bind-Value:after="OnValueChangedAsync"
+                     Label="Perimeter size"
+                     Min="5"
+                     Max="1000"
+                     Variant="Variant.Outlined"
+                     Class="pb-3" />
+
+    <MudNumericField T="int"
+                     @bind-Value="FeatureState.Templars"
+                     @bind-Value:after="OnValueChangedAsync"
+                     Label="Number of templars"
+                     Min="0"
+                     Max="100"
+                     Variant="Variant.Outlined" />
+
+    <MudDivider Class="my-4" />
+
+    <MudCheckBox T="bool"
+                 @bind-Value="FeatureState.IsEpic"
+                 @bind-Value:after="OnValueChangedAsync"
+                 Label="Is Epic server?" />
+</MudPaper>
+
+@code {
+    /// <summary>
+    /// Raised after the state has been recalculated, so the parent can refresh the other sections.
+    /// </summary>
+    [Parameter]
+    public EventCallback OnChanged { get; set; }
+
+    private async Task OnValueChangedAsync()
+    {
+        // Recalculate first, then let the parent re-render the dependent sections.
+        FeatureState.Recalculate();
+
+        await OnChanged.InvokeAsync();
+    }
+}

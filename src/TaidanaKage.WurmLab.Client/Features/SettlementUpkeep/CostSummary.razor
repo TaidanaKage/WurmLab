@@ -1,0 +1,26 @@
+<MudPaper Class="pa-4" Elevation="2">
+    <MudText Typo="Typo.h5" Class="pb-4">Costs</MudText>
+
+    <MudField Label="Deed tiles"
+              Variant="Variant.Outlined"
+              Class="mb-4">
+        @FeatureState.DeedTiles
+    </MudField>
+
+    <MudField Label="Perimeter tiles"
+              Variant="Variant.Outlined"
+              Class="mb-4">
+        @FeatureState.PerimeterTiles
+    </MudField>
+
+    <MudField Label="Initial settlement cost"
+              Variant="Variant.Outlined"
+              Class="mb-4">
+        @FeatureState.InitialCost.ToString()
+    </MudField>
+
+    <MudField Label="Monthly upkeep"
+              Variant="Variant.Outlined">
+        @FeatureState.MonthlyUpkeep.ToString()
+    </MudField>
+</MudPaper>
