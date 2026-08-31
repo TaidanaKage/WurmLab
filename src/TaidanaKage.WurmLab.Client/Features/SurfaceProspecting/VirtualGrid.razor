@@ -1,0 +1,198 @@
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@implements IAsyncDisposable
+
+<div class="vg-scroll" @ref="_scrollContainer" @onscroll="OnScrollAsync">
+    <div class="vg-phantom" style="width:@(WorldPixelWidth)px; height:@(WorldPixelHeight)px;">
+        @foreach (var tile in GetVisibleTiles())
+        {
+            <div class="vg-tile @GetCertaintyClass(tile)"
+                 style="left:@(tile.X * TileSize)px; top:@(tile.Y * TileSize)px; width:@(TileSize)px; height:@(TileSize)px;"
+                 @onclick="() => OnTileClicked(tile)">
+
+                <MudTooltip Arrow="true" Placement="Placement.Top">
+                    <ChildContent>
+                        <div class="vg-tile-content">
+                            @if (tile.IsProspected)
+                            {
+                                <MudIcon Icon="@Icons.Material.Filled.Construction"
+                                         Size="Size.Small"
+                                         Class="vg-badge" />
+                            }
+                            @if (tile.PrimaryMineral is not null)
+                            {
+                                <span class="vg-label">
+                                    @tile.PrimaryMineral @(tile.Certainty)%
+                                </span>
+                            }
+                        </div>
+                    </ChildContent>
+                    <TooltipContent>
+                        <MudText Typo="Typo.body2">
+                            Tile (@tile.X, @tile.Y)
+                        </MudText>
+                        <MudText Typo="Typo.caption">
+                            @* Placeholder: full candidate list goes here later *@
+                            @(tile.PrimaryMineral ?? "No data") — @(tile.Certainty)%
+                        </MudText>
+                    </TooltipContent>
+                </MudTooltip>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    /// <summary>World width in tiles.</summary>
+    [Parameter]
+    public int GridWidth { get; set; } = 100;
+
+    /// <summary>World height in tiles.</summary>
+    [Parameter]
+    public int GridHeight { get; set; } = 100;
+
+    /// <summary>Tile edge length in pixels (44px minimum for touch targets).</summary>
+    [Parameter]
+    public int TileSize { get; set; } = 44;
+
+    private ElementReference _scrollContainer;
+    private IJSObjectReference? _module;
+
+    // Current visible tile window.
+    private int _xStart;
+    private int _xEnd;
+    private int _yStart;
+    private int _yEnd;
+
+    private int WorldPixelWidth
+    {
+        get
+        {
+            return GridWidth * TileSize;
+        }
+    }
+
+    private int WorldPixelHeight
+    {
+        get
+        {
+            return GridHeight * TileSize;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Load the JS helper used to read scroll offsets and viewport size.
+            _module = await JS.InvokeAsync<IJSObjectReference>(
+                "import", "./Features/SurfaceProspecting/VirtualGrid.razor.js");
+
+            // Compute the initial visible window.
+            await UpdateVisibleWindowAsync();
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnScrollAsync()
+    {
+        await UpdateVisibleWindowAsync();
+    }
+
+    private async Task UpdateVisibleWindowAsync()
+    {
+        if (_module is null)
+        {
+            return;
+        }
+
+        // Read scrollLeft/scrollTop/clientWidth/clientHeight from the DOM.
+        var metrics = await _module.InvokeAsync<ScrollMetrics>("getScrollMetrics", _scrollContainer);
+
+        // Compute the visible tile range with a 1-tile overscan buffer.
+        _xStart = Math.Max(0, (int)Math.Floor(metrics.ScrollLeft / TileSize) - 1);
+        _xEnd = Math.Min(GridWidth - 1, (int)Math.Ceiling((metrics.ScrollLeft + metrics.ClientWidth) / TileSize) + 1);
+        _yStart = Math.Max(0, (int)Math.Floor(metrics.ScrollTop / TileSize) - 1);
+        _yEnd = Math.Min(GridHeight - 1, (int)Math.Ceiling((metrics.ScrollTop + metrics.ClientHeight) / TileSize) + 1);
+    }
+
+    private IEnumerable<TileModel> GetVisibleTiles()
+    {
+        // Placeholder data source; will be replaced by the deduction engine output.
+        for (int y = _yStart; y <= _yEnd; y++)
+        {
+            for (int x = _xStart; x <= _xEnd; x++)
+            {
+                var tile = new TileModel
+                {
+                    X = x,
+                    Y = y,
+                    Certainty = 0,
+                    PrimaryMineral = null,
+                    IsProspected = false
+                };
+
+                yield return tile;
+            }
+        }
+    }
+
+    private static string GetCertaintyClass(TileModel tile)
+    {
+        // Map certainty to the visualization states from the spec.
+        if (tile.Certainty == 0)
+        {
+            return "vg-empty";
+        }
+
+        if (tile.Certainty == 100)
+        {
+            return "vg-locked";
+        }
+
+        return "vg-heat";
+    }
+
+    private async Task OnTileClicked(TileModel tile)
+    {
+        // Pass the clicked coordinate into the dialog.
+        var parameters = new DialogParameters<TileDialog>
+    {
+        { d => d.X, tile.X },
+        { d => d.Y, tile.Y }
+    };
+
+        // Centered modal on desktop.
+        var options = new DialogOptions
+        {
+            CloseButton = true,
+            MaxWidth = MaxWidth.Small,
+            FullWidth = true,
+            FullScreen = false
+        };
+
+        var dialog = await DialogService.ShowAsync<TileDialog>("Tile Details", parameters, options);
+        var result = await dialog.Result;
+
+        if (result is not null && !result.Canceled)
+        {
+            // Later: feed the log text into the deduction engine and re-render the grid.
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_module is not null)
+        {
+            await _module.DisposeAsync();
+        }
+    }
+
+    private sealed class ScrollMetrics
+    {
+        public double ScrollLeft { get; set; }
+        public double ScrollTop { get; set; }
+        public double ClientWidth { get; set; }
+        public double ClientHeight { get; set; }
+    }
+}

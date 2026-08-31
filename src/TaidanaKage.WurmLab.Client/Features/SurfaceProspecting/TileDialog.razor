@@ -1,0 +1,59 @@
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">Tile (@X, @Y)</MudText>
+    </TitleContent>
+    <DialogContent>
+        <MudTabs Elevation="0" ApplyEffectsToContainer="true">
+            <MudTabPanel Text="Prospect Log">
+                <MudTextField T="string"
+                              @bind-Value="_logText"
+                              Label="Paste prospecting log"
+                              Lines="4"
+                              Variant="Variant.Outlined"
+                              Class="mt-4" />
+            </MudTabPanel>
+            <MudTabPanel Text="Details">
+                @* Placeholder: full candidate mineral list with probabilities. *@
+                <MudText Typo="Typo.body2" Class="mt-4">No deduction data yet.</MudText>
+            </MudTabPanel>
+            <MudTabPanel Text="Note">
+                <MudTextField T="string"
+                              @bind-Value="_note"
+                              Label="Custom note"
+                              Lines="3"
+                              Variant="Variant.Outlined"
+                              Class="mt-4" />
+            </MudTabPanel>
+        </MudTabs>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" OnClick="Save">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    private IMudDialogInstance MudDialog { get; set; } = default!;
+
+    [Parameter]
+    public int X { get; set; }
+
+    [Parameter]
+    public int Y { get; set; }
+
+    private string? _logText;
+    private string? _note;
+
+    private void Cancel()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Save()
+    {
+        // Later: return the entered data to the caller.
+        var result = DialogResult.Ok((_logText, _note));
+        MudDialog.Close(result);
+    }
+}
