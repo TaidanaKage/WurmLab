@@ -1,23 +1,26 @@
 @page "/HousePlan"
 
-<PageTitle>WurmLab - House Plan</PageTitle>
+<PageTitle>TK WurmLab - House Planner</PageTitle>
 
 <MudBreadcrumbs Items="_breadcrumbs" />
 
-<MudText Typo="Typo.h2" Class="pb-5">House Plan</MudText>
+<MudText Typo="Typo.h2" Class="pb-5">House Planner</MudText>
 
 <GroundFloorPlan />
 
 <MudText Class="mt-5">Notes</MudText>
 
 <MudList T="string" Dense="true">
-    <MudListItem T="string">The maximum length of a house is 20 tiles in one direction (engine hard cap).</MudListItem>
+    <MudListItem T="string">1. The maximum length of a house is 20 tiles in one direction (engine hard cap).</MudListItem>
+    <MudListItem T="string">2. The minimum Masonry skill needed to build a stone house is 30.</MudListItem>
+    <MudListItem T="string">3. Materials for floors and ceilings/roofs are not included yet.</MudListItem>
+    <MudListItem T="string">4. Only the ground floor is currently supported.</MudListItem>
 </MudList>
 
 @code {
     private readonly List<BreadcrumbItem> _breadcrumbs =
     [
         new BreadcrumbItem("Home", href: "./"),
-        new BreadcrumbItem("House Plan", href: null, disabled: true)
+        new BreadcrumbItem("House Planner", href: null, disabled: true)
     ];
 }
