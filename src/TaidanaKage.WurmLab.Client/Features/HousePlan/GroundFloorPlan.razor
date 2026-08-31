@@ -5,12 +5,6 @@
         <MudPaper Class="pa-4">
             <MudText Typo="Typo.h6" Class="mb-3">Ground Floor Layout</MudText>
 
-            @* Bulk selection buttons *@
-            <MudStack Row="true" Spacing="2" Class="mb-3">
-                <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="SelectAll">Select all</MudButton>
-                <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="UnselectAll">Unselect all</MudButton>
-            </MudStack>
-
             <div class="tile-grid" style="--grid-columns: @FeatureConfig.GridColumns; --tile-size: @(FeatureConfig.TileSize)px;">
                 @for (int row = 0; row < FeatureConfig.GridRows; row++)
                 {
@@ -31,40 +25,70 @@
 
     @* Right section: read-only calculated values *@
     <MudItem xs="12" md="4">
-        <MudPaper Class="pa-4">
-            <MudText Typo="Typo.h6" Class="mb-3">Requirements</MudText>
 
-            @if (FeatureState.ValidationError is not null)
-            {
+        @if (FeatureState.ValidationError is not null)
+        {
+            <MudPaper Class="pa-4">
+                <MudText Typo="Typo.h6" Class="mb-3">Error</MudText>
+
                 <MudAlert Severity="Severity.Error">@FeatureState.ValidationError</MudAlert>
-            }
-            else
-            {
-                <MudField Label="Required skill" Variant="Variant.Outlined" Class="mb-4">
+            </MudPaper>
+        }
+        else
+        {
+
+            <MudPaper Class="pa-4">
+                <MudText Typo="Typo.h6" Class="mb-3">Requirements</MudText>
+
+                <MudField Label="Carpentry skill" Variant="Variant.Outlined" Class="mb-4">
                     @FeatureState.RequiredSkill
                 </MudField>
 
-                <MudField Label="Required materials" Variant="Variant.Outlined">
+                <MudSelect T="HouseType" Value="FeatureState.SelectedHouseType" ValueChanged="OnHouseTypeChanged" Label="House type" Variant="Variant.Outlined" Dense="true" Class="mb-4" ToStringFunc="@(h => h?.Name)">
+                    @foreach (HouseType houseType in HouseTypes.All)
+                    {
+                        <MudSelectItem T="HouseType" Value="@houseType">@houseType.Name</MudSelectItem>
+                    }
+                </MudSelect>
+
+                <MudField Label="Materials" Variant="Variant.Outlined">
                     <div style="white-space: pre-line;">@FeatureState.RequiredMaterials</div>
                 </MudField>
-            }
-        </MudPaper>
-    </MudItem>
 
-    @* Bottom section: detailed breakdown of the calculation *@
-    <MudItem xs="12">
-        <MudPaper Class="pa-4">
-            <MudText Typo="Typo.h6" Class="mb-3">Detailed breakdown</MudText>
+            </MudPaper>
 
-            @if (FeatureState.ValidationError is not null)
-            {
-                <MudText>No calculation possible for an invalid shape.</MudText>
-            }
-            else
-            {
+            <MudPaper Class="pa-4">
+                <MudText Typo="Typo.h6" Class="mb-3">Breakdown</MudText>
+
+                <MudField Label="Number of tiles" Variant="Variant.Outlined" Class="mb-4">
+                    @FeatureState.TileCount
+                </MudField>
+
+                <MudField Label="Number of outer walls" Variant="Variant.Outlined" Class="mb-4">
+                    @FeatureState.WallCount
+                </MudField>
+
                 <div style="white-space: pre-line;">@FeatureState.DetailedBreakdown</div>
-            }
+            </MudPaper>
+
+        }
+
+        @* Drawing tools - preset shapes *@
+        <MudPaper Class="pa-4">
+            <MudText Typo="Typo.h6" Class="mb-3">Preset shapes</MudText>
+
+            <MudStack Row="true" Spacing="2" AlignItems="AlignItems.Center">
+                <MudSelect T="PresetShape" @bind-Value="FeatureState.SelectedPreset" Label="Shape" Variant="Variant.Outlined" Dense="true" Style="max-width: 150px;" ToStringFunc="@(p => p?.Name)">
+                    @foreach (PresetShape preset in PresetShapes.All)
+                    {
+                        <MudSelectItem T="PresetShape" Value="@preset">@preset.Name</MudSelectItem>
+                    }
+                </MudSelect>
+                <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="DrawPreset">Draw</MudButton>
+                <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="UnselectAll">Clear all</MudButton>
+            </MudStack>
         </MudPaper>
+
     </MudItem>
 
 </MudGrid>
@@ -104,6 +128,11 @@
         FeatureUtils.Recalculate();
     }
 
+    private void DrawPreset()
+    {
+        FeatureUtils.DrawPreset(FeatureState.SelectedPreset);
+    }
+
     private void ToggleTile(int row, int col)
     {
         // Toggle between enabled and disabled states.
@@ -113,13 +142,15 @@
         FeatureUtils.Recalculate();
     }
 
-    private void SelectAll()
-    {
-        FeatureUtils.SelectAll();
-    }
-
     private void UnselectAll()
     {
         FeatureUtils.UnselectAll();
+    }
+
+    private void OnHouseTypeChanged(HouseType houseType)
+    {
+        // Store the selection and refresh the material list.
+        FeatureState.SelectedHouseType = houseType;
+        FeatureUtils.Recalculate();
     }
 }

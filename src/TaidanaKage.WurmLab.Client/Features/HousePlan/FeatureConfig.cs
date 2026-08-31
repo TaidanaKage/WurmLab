@@ -19,4 +19,9 @@ internal static class FeatureConfig
     /// Size of a single tile in pixels.
     /// </summary>
     internal const int TileSize = 30;
+
+    /// <summary>
+    /// Maximum achievable skill value in the game (hardcoded game limit).
+    /// </summary>
+    internal const int MaxSkill = 100;
 }
