@@ -6,9 +6,13 @@
 
 <MudText Typo="Typo.h2" Class="pb-5">House Plan</MudText>
 
-<MudAlert Severity="Severity.Warning">
-    Work in progress...
-</MudAlert>
+<GroundFloorPlan />
+
+<MudText Class="mt-5">Notes</MudText>
+
+<MudList T="string" Dense="true">
+    <MudListItem T="string">The maximum length of a house is 20 tiles in one direction (engine hard cap).</MudListItem>
+</MudList>
 
 @code {
     private readonly List<BreadcrumbItem> _breadcrumbs =

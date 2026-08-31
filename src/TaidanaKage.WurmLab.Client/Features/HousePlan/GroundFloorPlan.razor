@@ -1,0 +1,125 @@
+<MudGrid Spacing="3">
+
+    @* Left section: clickable tile grid *@
+    <MudItem xs="12" md="8">
+        <MudPaper Class="pa-4">
+            <MudText Typo="Typo.h6" Class="mb-3">Ground Floor Layout</MudText>
+
+            @* Bulk selection buttons *@
+            <MudStack Row="true" Spacing="2" Class="mb-3">
+                <MudButton Variant="Variant.Outlined" Color="Color.Primary" OnClick="SelectAll">Select all</MudButton>
+                <MudButton Variant="Variant.Outlined" Color="Color.Secondary" OnClick="UnselectAll">Unselect all</MudButton>
+            </MudStack>
+
+            <div class="tile-grid" style="--grid-columns: @FeatureConfig.GridColumns; --tile-size: @(FeatureConfig.TileSize)px;">
+                @for (int row = 0; row < FeatureConfig.GridRows; row++)
+                {
+                    for (int col = 0; col < FeatureConfig.GridColumns; col++)
+                    {
+                        // Capture loop variables for the lambda.
+                        int r = row;
+                        int c = col;
+
+                        string tileClass = FeatureState.Tiles[r, c] ? "tile tile-enabled" : "tile tile-disabled";
+
+                        <div class="@tileClass" @onclick="() => ToggleTile(r, c)"></div>
+                    }
+                }
+            </div>
+        </MudPaper>
+    </MudItem>
+
+    @* Right section: read-only calculated values *@
+    <MudItem xs="12" md="4">
+        <MudPaper Class="pa-4">
+            <MudText Typo="Typo.h6" Class="mb-3">Requirements</MudText>
+
+            @if (FeatureState.ValidationError is not null)
+            {
+                <MudAlert Severity="Severity.Error">@FeatureState.ValidationError</MudAlert>
+            }
+            else
+            {
+                <MudField Label="Required skill" Variant="Variant.Outlined" Class="mb-4">
+                    @FeatureState.RequiredSkill
+                </MudField>
+
+                <MudField Label="Required materials" Variant="Variant.Outlined">
+                    <div style="white-space: pre-line;">@FeatureState.RequiredMaterials</div>
+                </MudField>
+            }
+        </MudPaper>
+    </MudItem>
+
+    @* Bottom section: detailed breakdown of the calculation *@
+    <MudItem xs="12">
+        <MudPaper Class="pa-4">
+            <MudText Typo="Typo.h6" Class="mb-3">Detailed breakdown</MudText>
+
+            @if (FeatureState.ValidationError is not null)
+            {
+                <MudText>No calculation possible for an invalid shape.</MudText>
+            }
+            else
+            {
+                <div style="white-space: pre-line;">@FeatureState.DetailedBreakdown</div>
+            }
+        </MudPaper>
+    </MudItem>
+
+</MudGrid>
+
+<style>
+    .tile-grid {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-columns), var(--tile-size));
+        gap: 2px;
+    }
+
+    .tile {
+        width: var(--tile-size);
+        height: var(--tile-size);
+        cursor: pointer;
+        border: 1px solid var(--mud-palette-lines-default);
+        transition: background-color 0.15s ease;
+    }
+
+    .tile-enabled {
+        background-color: var(--mud-palette-primary);
+    }
+
+    .tile-disabled {
+        background-color: var(--mud-palette-background-gray);
+    }
+
+    .tile:hover {
+        opacity: 0.7;
+    }
+</style>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Ensure the displayed values match the current tile state on first render.
+        FeatureUtils.Recalculate();
+    }
+
+    private void ToggleTile(int row, int col)
+    {
+        // Toggle between enabled and disabled states.
+        FeatureState.Tiles[row, col] = !FeatureState.Tiles[row, col];
+
+        // Recalculate the requirements after every change.
+        FeatureUtils.Recalculate();
+    }
+
+    private void SelectAll()
+    {
+        FeatureUtils.SelectAll();
+    }
+
+    private void UnselectAll()
+    {
+        FeatureUtils.UnselectAll();
+    }
+}
