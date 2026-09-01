@@ -1,0 +1,48 @@
+<MudItem xs="12" md="6">
+    <MudCard Class="d-flex flex-column" Style="height: 100%;">
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                <MudIcon Icon="@Icon" Color="Color.Primary" Size="Size.Large" />
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.h6">@Title</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudCardContent Class="flex-grow-1">
+            <MudText Typo="Typo.body2">
+                @Description
+            </MudText>
+            <MudLink Href="@Href"
+                     Target="@(IsExternal ? "_blank" : null)"
+                     Rel="@(IsExternal ? "noopener noreferrer" : null)"
+                     Typo="Typo.body2">
+                @LinkText
+            </MudLink>
+        </MudCardContent>
+    </MudCard>
+</MudItem>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public string Icon { get; set; } = string.Empty;
+
+    [Parameter]
+    [EditorRequired]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    [EditorRequired]
+    public string Description { get; set; } = string.Empty;
+
+    [Parameter]
+    [EditorRequired]
+    public string Href { get; set; } = string.Empty;
+
+    [Parameter]
+    [EditorRequired]
+    public string LinkText { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool IsExternal { get; set; }
+}

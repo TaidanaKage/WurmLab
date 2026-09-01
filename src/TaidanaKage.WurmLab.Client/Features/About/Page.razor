@@ -13,55 +13,19 @@
 
 <MudGrid Spacing="4">
 
-    <MudItem xs="12" md="6">
-        <MudCard Class="d-flex flex-column" Style="height: 100%;">
-            <MudCardHeader>
-                <CardHeaderAvatar>
-                    <MudIcon Icon="@Icons.Custom.Brands.GitHub" Color="Color.Primary" Size="Size.Large" />
-                </CardHeaderAvatar>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Source Code</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent Class="flex-grow-1">
-                <MudText Typo="Typo.body2">
-                    WurmLab is an open-source project. Issues and pull requests are welcome.
-                </MudText>
-                <MudLink Href="https://github.com/TaidanaKage/WurmLab"
-                         Target="_blank"
-                         Rel="noopener noreferrer"
-                         Typo="Typo.body2">
-                    github.com/TaidanaKage/WurmLab
-                </MudLink>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
+    <InfoCard Icon="@Icons.Custom.Brands.GitHub"
+              Title="Source Code"
+              Description="WurmLab is an open-source project. Issues and pull requests are welcome."
+              Href="https://github.com/TaidanaKage/WurmLab"
+              LinkText="github.com/TaidanaKage/WurmLab"
+              IsExternal="true" />
 
-    <MudItem xs="12" md="6">
-        <MudCard Class="d-flex flex-column" Style="height: 100%;">
-            <MudCardHeader>
-                <CardHeaderAvatar>
-                    <MudIcon Icon="@Icons.Material.Filled.Public" Color="Color.Primary" Size="Size.Large" />
-                </CardHeaderAvatar>
-                <CardHeaderContent>
-                    <MudText Typo="Typo.h6">Riviera</MudText>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent Class="flex-grow-1">
-                <MudText Typo="Typo.body2">
-                    A Wurm Unlimited server I recommend. It is also the reason this app exists:
-                    someone in my household plays there actively and kept complaining about how hard
-                    the plain-text analysis logs are to read.
-                </MudText>
-                <MudLink Href="https://riviera.thahenry.de/riviera"
-                         Target="_blank"
-                         Rel="noopener noreferrer"
-                         Typo="Typo.body2">
-                    riviera.thahenry.de/riviera
-                </MudLink>
-            </MudCardContent>
-        </MudCard>
-    </MudItem>
+    <InfoCard Icon="@Icons.Material.Filled.Public"
+              Title="Riviera"
+              Description="A Wurm Unlimited server I recommend. It is also the reason this app exists: a friend of mine plays there actively and kept complaining about how hard the plain-text analysis logs are to read."
+              Href="https://riviera.thahenry.de/riviera"
+              LinkText="riviera.thahenry.de/riviera"
+              IsExternal="true" />
 
 </MudGrid>
 
