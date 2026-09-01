@@ -7,109 +7,27 @@
 <MudText Class="mb-5 mt-5">TK WurmLab is a small collection of tools for Wurm Unlimited and Wurm Online players.</MudText>
 
 <MudGrid Spacing="4">
-    <MudItem xs="12" sm="6" md="3">
-        <MudCard Class="d-flex flex-column" Style="height: 100%;">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <div class="d-flex flex-column align-center">
-                        <MudIcon Icon="@Icons.Material.Filled.Search" Color="Color.Primary" Size="Size.Large" />
-                        <MudText Typo="Typo.h6" Align="Align.Center" Class="mt-2">Shard Analysis</MudText>
-                    </div>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent Class="flex-grow-1">
-                <MudText Typo="Typo.body2" Align="Align.Center">
-                    Visual mini-map for the shard analysis results.
-                </MudText>
-            </MudCardContent>
-            <MudCardActions Class="justify-center">
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           FullWidth="true"
-                           Href="ShardAnalysis">
-                    Open
-                </MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
 
-    <MudItem xs="12" sm="6" md="3">
-        <MudCard Class="d-flex flex-column" Style="height: 100%;">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <div class="d-flex flex-column align-center">
-                        <MudIcon Icon="@Icons.Material.Filled.Terrain" Color="Color.Primary" Size="Size.Large" />
-                        <MudText Typo="Typo.h6" Align="Align.Center" Class="mt-2">Surface Prospecting</MudText>
-                    </div>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent Class="flex-grow-1">
-                <MudText Typo="Typo.body2" Align="Align.Center">
-                    Visual mini-map of ore types discovered while prospecting the surface.
-                </MudText>
-            </MudCardContent>
-            <MudCardActions Class="justify-center">
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           FullWidth="true"
-                           Href="SurfaceProspecting">
-                    Open
-                </MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
+    <HomeCard Icon="@Icons.Material.Filled.Search"
+              Title="Shard Analysis"
+              Description="Visual mini-map for the shard analysis results."
+              Href="ShardAnalysis" />
 
-    <MudItem xs="12" sm="6" md="3">
-        <MudCard Class="d-flex flex-column" Style="height: 100%;">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <div class="d-flex flex-column align-center">
-                        <MudIcon Icon="@Icons.Material.Filled.AccountBalance" Color="Color.Primary" Size="Size.Large" />
-                        <MudText Typo="Typo.h6" Align="Align.Center" Class="mt-2">Settlement Upkeep</MudText>
-                    </div>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent Class="flex-grow-1">
-                <MudText Typo="Typo.body2" Align="Align.Center">
-                    Estimate the initial cost and monthly upkeep for a settlement.
-                </MudText>
-            </MudCardContent>
-            <MudCardActions Class="justify-center">
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           FullWidth="true"
-                           Href="SettlementUpkeep">
-                    Open
-                </MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
+    <HomeCard Icon="@Icons.Material.Filled.Terrain"
+              Title="Surface Prospecting"
+              Description="Visual mini-map of ore types discovered while prospecting the surface."
+              Href="SurfaceProspecting" />
 
-    <MudItem xs="12" sm="6" md="3">
-        <MudCard Class="d-flex flex-column" Style="height: 100%;">
-            <MudCardHeader>
-                <CardHeaderContent>
-                    <div class="d-flex flex-column align-center">
-                        <MudIcon Icon="@Icons.Material.Filled.Foundation" Color="Color.Primary" Size="Size.Large" />
-                        <MudText Typo="Typo.h6" Align="Align.Center" Class="mt-2">House Planner</MudText>
-                    </div>
-                </CardHeaderContent>
-            </MudCardHeader>
-            <MudCardContent Class="flex-grow-1">
-                <MudText Typo="Typo.body2" Align="Align.Center">
-                    Design house layouts and check the required skills and materials.
-                </MudText>
-            </MudCardContent>
-            <MudCardActions Class="justify-center">
-                <MudButton Variant="Variant.Filled"
-                           Color="Color.Primary"
-                           FullWidth="true"
-                           Href="HousePlanner">
-                    Open
-                </MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudItem>
+    <HomeCard Icon="@Icons.Material.Filled.AccountBalance"
+              Title="Settlement Upkeep"
+              Description="Estimate the initial cost and monthly upkeep for a settlement."
+              Href="SettlementUpkeep" />
+
+    <HomeCard Icon="@Icons.Material.Filled.Foundation"
+              Title="House Planner"
+              Description="Design house layouts and check the required skills and materials."
+              Href="HousePlanner" />
+
 </MudGrid>
 
 @code {
