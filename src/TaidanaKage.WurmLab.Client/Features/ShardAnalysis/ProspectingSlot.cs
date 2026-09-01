@@ -1,4 +1,4 @@
-﻿namespace TaidanaKage.WurmLab.Client.Features.ShardAnalyzing;
+namespace TaidanaKage.WurmLab.Client.Features.ShardAnalysis;
 
 /// <summary>
 /// Represents all leads that share the same perimeter distance and the same direction,

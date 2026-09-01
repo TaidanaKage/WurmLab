@@ -1,7 +1,7 @@
-﻿using Svg;
+using Svg;
 using System.Drawing;
 
-namespace TaidanaKage.WurmLab.Client.Features.ShardAnalyzing;
+namespace TaidanaKage.WurmLab.Client.Features.ShardAnalysis;
 
 /// <summary>
 /// A collection of helper methods to generate images from the parsed data.

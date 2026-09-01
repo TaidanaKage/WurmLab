@@ -1,4 +1,4 @@
-namespace TaidanaKage.WurmLab.Client.Features.HousePlan;
+namespace TaidanaKage.WurmLab.Client.Features.HousePlanner;
 
 /// <summary>
 /// Constant configuration values for the House Plan feature.

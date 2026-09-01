@@ -1,4 +1,4 @@
-﻿namespace TaidanaKage.WurmLab.Client.Features.ShardAnalyzing;
+namespace TaidanaKage.WurmLab.Client.Features.ShardAnalysis;
 
 /// <summary>
 /// Defines a single lead found in a prospecting perimeter.

@@ -1,4 +1,4 @@
-namespace TaidanaKage.WurmLab.Client.Features.HousePlan;
+namespace TaidanaKage.WurmLab.Client.Features.HousePlanner;
 
 /// <summary>
 /// A named pre-defined shape that can be drawn onto the tile grid.

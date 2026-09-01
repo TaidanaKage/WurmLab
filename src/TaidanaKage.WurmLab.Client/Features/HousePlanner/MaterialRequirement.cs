@@ -1,4 +1,4 @@
-namespace TaidanaKage.WurmLab.Client.Features.HousePlan;
+namespace TaidanaKage.WurmLab.Client.Features.HousePlanner;
 
 /// <summary>
 /// A single material and the amount of it required per wall.

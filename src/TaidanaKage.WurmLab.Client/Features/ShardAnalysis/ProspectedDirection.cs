@@ -1,4 +1,4 @@
-﻿namespace TaidanaKage.WurmLab.Client.Features.ShardAnalyzing;
+namespace TaidanaKage.WurmLab.Client.Features.ShardAnalysis;
 
 /// <summary>
 /// Cardinal and diagonal directions are precise: they form exact 1-tile vectors.

@@ -1,4 +1,4 @@
-﻿namespace TaidanaKage.WurmLab.Client.Features.ShardAnalyzing;
+namespace TaidanaKage.WurmLab.Client.Features.ShardAnalysis;
 
 /// <summary>
 /// Defines a single square perimeter of tiles at a fixed distance from player. 

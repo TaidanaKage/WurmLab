@@ -1,7 +1,7 @@
-﻿using Svg;
+using Svg;
 using System.Drawing;
 
-namespace TaidanaKage.WurmLab.Client.Features.ShardAnalyzing;
+namespace TaidanaKage.WurmLab.Client.Features.ShardAnalysis;
 
 internal static partial class ImageUtils
 {

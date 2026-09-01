@@ -1,4 +1,4 @@
-﻿namespace TaidanaKage.WurmLab.Client.Features.ShardAnalyzing;
+namespace TaidanaKage.WurmLab.Client.Features.ShardAnalysis;
 
 /// <summary>
 /// An axis-aligned, inclusive rectangle of tiles, expressed in tile coordinates relative to the player.

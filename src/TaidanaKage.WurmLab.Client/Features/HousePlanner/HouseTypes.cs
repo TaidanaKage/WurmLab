@@ -1,4 +1,4 @@
-namespace TaidanaKage.WurmLab.Client.Features.HousePlan;
+namespace TaidanaKage.WurmLab.Client.Features.HousePlanner;
 
 /// <summary>
 /// Catalog of pre-defined house types for the House Plan feature.

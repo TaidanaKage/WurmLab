@@ -1,4 +1,4 @@
-namespace TaidanaKage.WurmLab.Client.Features.HousePlan;
+namespace TaidanaKage.WurmLab.Client.Features.HousePlanner;
 
 /// <summary>
 /// Calculation and state-manipulation helpers for the House Plan feature.
