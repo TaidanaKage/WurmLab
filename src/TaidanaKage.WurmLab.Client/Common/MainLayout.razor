@@ -12,9 +12,6 @@
         <MudText Typo="Typo.h6" Class="ml-2">TK WurmLab</MudText>
         <MudSpacer />
         <MudIconButton Icon="@(DarkLightModeButtonIcon)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
-        <MudLink Href="About" Color="Color.Inherit" Underline="Underline.None">
-            About
-        </MudLink>
     </MudAppBar>
 
     <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
@@ -60,41 +57,60 @@
 
     private readonly PaletteLight _lightPalette = new()
     {
-        Black = "#110e2d",
-        AppbarText = "#424242",
-        AppbarBackground = "rgba(255,255,255,0.8)",
-        DrawerBackground = "#ffffff",
-        GrayLight = "#e8e8e8",
-        GrayLighter = "#f9f9f9",
+        Primary = "#3F5243",                 // Deep Moss / Forest Green
+        Secondary = "#9E4D2A",               // Warm Terracotta / Clay Rust
+        Tertiary = "#8C6D46",                 // Aged Bronze
+        Background = "#F5F2EB",               // Warm Parchment Paper
+        Surface = "#FAF8F3",                  // Soft Vellum Surface
+        AppbarBackground = "rgba(245, 242, 235, 0.9)",
+        AppbarText = "#2C2723",
+        DrawerBackground = "#EAE4D9",          // Aged Paper Drawer
+        DrawerText = "#2C2723",
+        DrawerIcon = "#4A5D4E",
+        TextPrimary = "#2C2723",              // Deep Oak / Sepia Ink
+        TextSecondary = "#60564D",            // Muted Charcoal Brown
+        ActionDefault = "#4A5D4E",
+        GrayLight = "#E2DDD3",
+        GrayLighter = "#ECE7DE",
+        LinesDefault = "#D5CEBF",
+        TableLines = "#D5CEBF",
+        Divider = "#DDD6C7",
+        Info = "#4D6A75",                     // Muted Slate Blue
+        Success = "#4A6E4F",                  // Herb Green
+        Warning = "#B87A3B",                  // Warm Ember
+        //Error = "#9E4747",                    // Rust Red
+        Error = "#C82C2C", // Prominent Wax Seal Crimson
     };
 
     private readonly PaletteDark _darkPalette = new()
     {
-        Primary = "#7e6fff",
-        Surface = "#1e1e2d",
-        Background = "#1a1a27",
-        BackgroundGray = "#151521",
-        AppbarText = "#92929f",
-        AppbarBackground = "rgba(26,26,39,0.8)",
-        DrawerBackground = "#1a1a27",
-        ActionDefault = "#74718e",
-        ActionDisabled = "#9999994d",
-        ActionDisabledBackground = "#605f6d4d",
-        TextPrimary = "#b2b0bf",
-        TextSecondary = "#92929f",
+        Primary = "#7F9A83",                  // Soft Sage Green
+        Secondary = "#BA9A7C",                // Warm Amber / Leather Gold
+        Tertiary = "#9D8262",                 // Muted Brass
+        Background = "#1A1D1A",               // Deep Night Forest / Dark Slate
+        BackgroundGray = "#141614",
+        Surface = "#222622",                  // Dark Moss Surface
+        AppbarBackground = "rgba(26, 29, 26, 0.9)",
+        AppbarText = "#E5DFD5",
+        DrawerBackground = "#181A18",
+        DrawerText = "#B8B2A6",
+        DrawerIcon = "#7F9A83",
+        TextPrimary = "#E5DFD5",              // Off-white Linen Text
+        TextSecondary = "#A39E94",            // Soft Ash Text
         TextDisabled = "#ffffff33",
-        DrawerIcon = "#92929f",
-        DrawerText = "#92929f",
-        GrayLight = "#2a2833",
-        GrayLighter = "#1e1e2d",
-        Info = "#4a86ff",
-        Success = "#3dcb6c",
-        Warning = "#ffb545",
-        Error = "#ff3f5f",
-        LinesDefault = "#33323e",
-        TableLines = "#33323e",
-        Divider = "#292838",
-        OverlayLight = "#1e1e2d80",
+        ActionDefault = "#8F9E8B",
+        ActionDisabled = "#9999994d",
+        ActionDisabledBackground = "#3338334d",
+        GrayLight = "#2C312C",
+        GrayLighter = "#222622",
+        LinesDefault = "#2E342E",
+        TableLines = "#2E342E",
+        Divider = "#353C35",
+        OverlayLight = "#22262280",
+        Info = "#628694",                     // Soft Steel Blue
+        Success = "#5C8A62",                  // Muted Forest Green
+        Warning = "#C98E4B",                  // Torch Light Yellow
+        Error = "#E56E6E",
     };
 
     public string DarkLightModeButtonIcon => _isDarkMode switch
